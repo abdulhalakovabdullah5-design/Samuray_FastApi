@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Добро пожаловать</title>
+<style>
+  :root{
+    --blue-900:#0a1a4f;
+    --blue-800:#0f2a78;
+    --blue-600:#1e56c7;
+    --blue-400:#4f8cff;
+    --cyan-300:#6ee7ff;
+    --text:#eaf2ff;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    min-height:100vh;
+    font-family:'Segoe UI', system-ui, -apple-system, sans-serif;
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:80px 20px 40px;
+    background:linear-gradient(135deg,var(--blue-900) 0%,var(--blue-800) 45%,var(--blue-600) 100%);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* Светящиеся круги на фоне */
+  body::before,
+  body::after{
+    content:"";
+    position:fixed;
+    border-radius:50%;
+    filter:blur(90px);
+    opacity:.5;
+    z-index:0;
+    pointer-events:none;
+  }
+  body::before{
+    width:420px;height:420px;
+    background:var(--blue-400);
+    top:-120px;left:-120px;
+    animation:drift 14s ease-in-out infinite alternate;
+  }
+  body::after{
+    width:360px;height:360px;
+    background:var(--cyan-300);
+    bottom:-140px;right:-100px;
+    animation:drift 18s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift{
+    from{transform:translate(0,0) scale(1);}
+    to{transform:translate(40px,30px) scale(1.15);}
+  }
+
+  /* Кнопки в правом верхнем углу */
+  .auth{
+    position:fixed;
+    top:24px;
+    right:28px;
+    display:flex;
+    gap:12px;
+    z-index:10;
+  }
+  .auth button{
+    font:inherit;
+    font-size:15px;
+    font-weight:600;
+    padding:11px 22px;
+    border-radius:12px;
+    cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-login{
+    background:rgba(255,255,255,.1);
+    color:var(--text);
+    border:1px solid rgba(255,255,255,.32);
+    backdrop-filter:blur(8px);
+  }
+  .btn-login:hover{
+    background:rgba(255,255,255,.2);
+    transform:translateY(-2px);
+  }
+  .btn-register{
+    background:linear-gradient(135deg,var(--blue-400),var(--cyan-300));
+    color:#061432;
+    border:none;
+    box-shadow:0 6px 20px rgba(79,140,255,.45);
+  }
+  .btn-register:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(79,140,255,.65);
+  }
+  .auth button:active{transform:translateY(0);}
+
+  /* Плавающая карточка */
+  .card{
+    position:relative;
+    z-index:2;
+    max-width:560px;
+    width:100%;
+    padding:56px 48px;
+    text-align:center;
+    border-radius:26px;
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.22);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:
+      0 24px 60px rgba(4,12,40,.55),
+      inset 0 1px 0 rgba(255,255,255,.25);
+    animation:float 6s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-14px);}
+  }
+
+  .badge{
+    display:inline-block;
+    font-size:13px;
+    letter-spacing:1.4px;
+    text-transform:uppercase;
+    padding:7px 16px;
+    margin-bottom:24px;
+    border-radius:999px;
+    color:var(--cyan-300);
+    background:rgba(110,231,255,.12);
+    border:1px solid rgba(110,231,255,.3);
+  }
+
+  h1{
+    font-size:clamp(30px,5vw,46px);
+    line-height:1.15;
+    margin-bottom:18px;
+    background:linear-gradient(120deg,#ffffff 10%,var(--cyan-300) 60%,var(--blue-400) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+
+  p{
+    font-size:17px;
+    line-height:1.65;
+    color:rgba(234,242,255,.82);
+    margin-bottom:34px;
+  }
+
+  .cta{
+    font:inherit;
+    font-size:16px;
+    font-weight:700;
+    padding:15px 40px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    color:#061432;
+    background:linear-gradient(135deg,var(--cyan-300),var(--blue-400));
+    box-shadow:0 10px 26px rgba(79,140,255,.5);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .cta:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 34px rgba(79,140,255,.7);
+  }
+
+  /* Адаптивность */
+  @media (max-width:600px){
+    body{padding:100px 16px 32px;}
+    .auth{top:16px;right:16px;gap:8px;}
+    .auth button{padding:9px 16px;font-size:14px;}
+    .card{padding:40px 24px;border-radius:20px;}
+    p{font-size:16px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .card, body::before, body::after{animation:none;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+  <!-- Кнопки входа / регистрации -->
+  <div class="auth">
+    <button class="btn-login" type="button">Вход</button>
+    <button class="btn-register" type="button">Регистрация</button>
+  </div>
+
+  <!-- Плавающая страница -->
+  <main class="card">
+    <span class="badge">Ansarium</span>
+    <h1>Привет! Рады тебя видеть</h1>
+    <p>Добро пожаловать на нашу платформу. Войди в аккаунт или создай новый — и начнём.</p>
+    <button class="cta" type="button">Начать</button>
+  </main>
+
+</body>
+</html>
